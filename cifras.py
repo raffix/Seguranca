@@ -77,6 +77,11 @@ def transposicao(chave):
 		for c in range(0,restChar):
 			arquivo.write(matriz[c][d])
 
+	arquivo.close()
+	
+	print "\n\n Transposicao Concluido"
+	return
+
 
 def vigenere(chave):
 	readFile()
@@ -98,7 +103,7 @@ def vigenere(chave):
 	arquivo.close()
 
 	print "\n \t Vigenere Concluido"
-
+	return 
 
 def substituicao(chave):
 	readFile()
@@ -106,7 +111,7 @@ def substituicao(chave):
 	arquivo = open(saida+".encrypted",'wb')
 	arquivoChave = open(chave,'rb')
 	tempTranspos = arquivoChave.readlines()
-	
+
 	
 
 
