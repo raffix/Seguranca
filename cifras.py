@@ -82,38 +82,56 @@ def vigenere(chave):
 	readFile()
 	saida   = raw_input("Informe o arquivo de saida:\t ")
 	arquivo = open(saida+".encrypted",'wb')
-	nvezes  = len(dados) / len(chave)
 	resto   = len(dados) % len(chave)
-	print resto
-	if( resto !=  0 ):
-		
+
+	''' Soma os caracteres '''
+	c = 0
+
+	while c < len(dados):
+		for i in range(0,len(chave)):
+			if ( c == len(dados)):
+				break
+			temp = ord(dados[c]) + ord(chave[i])
+			arquivo.write(str(temp))
+			c = c + 1
+
+	arquivo.close()
+
+	print "\n \t Vigenere Concluido"
+
+
+def substituicao():
+	readFile()
+	saida   = raw_input("Informe o arquivo de saida:\t ")
+	arquivo = open(saida+".encrypted",'wb')
+
+	
 
 
 
 def main():
 	metodo = int(raw_input("\n Escolha o metodo de criptografia: \n\t1 - Cifra de Caesar \n\t2 - Cifra de transposicao \n\t3 - Cifra de vigenere\n\t4 - Cifra de substituicao\nEntrada: "))
-
+	
 	if metodo == 1 :
-		chave = int(raw_input("\n\n\t CIFRA DE CAESAR \nInforme o valor da chave:\t "))
+		chave = int(raw_input("\n\n\t Cifra de CAESAR \nInforme o valor da chave:\t "))
 		ceasar(chave)
 
 	elif metodo == 2 :
-		chave = int(raw_input("\n\n\n Cifra de transposicao \n\n\nInforme o valor da chave: "))
+		chave = int(raw_input("\n\n\n Cifra de TRANSPOSICAO \n\n\nInforme o valor da chave: "))
 		transposicao(chave)
 
 	elif metodo == 3 :
-		chave = raw_input("\n\n\n Cifra de vigenere \n\n\nInforme o valor da chave: ")
+		chave = raw_input("\n\n\n Cifra de VIGENERE \n\n\nInforme o valor da chave: ")
 		vigenere(chave)
 	elif metodo == 4 :
 		chave = 256
-		print "\n\n\n Cifra de substituicao \n\n\nTamanho do alfabeto: "
+		print "\n\n\n Cifra de SUBSTITUICAO \n\n"
+		substituicao()
+
 
 	else :
 		print "\n\n\nNenhuma cifra valida escolhida \n "
 		return
-
-
-
 		
 
 main()
