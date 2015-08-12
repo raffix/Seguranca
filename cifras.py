@@ -16,7 +16,7 @@ def ceasar(chave):
 	readFile()
 	saida = raw_input("Informe o arquivo de saida:\t ")
 	arquivo = open(saida,'wb')
-	''' map(charPlus,dados) '''
+	''' map(ord,dados) '''
 	for c in dados:
 		caracter = ord(c) + chave
 		caracter = caracter % 256
@@ -51,7 +51,7 @@ def transposicao(chave):
 	for line in dados:
 		for c in line:
 			lista.append(c)
-
+	
 	restChar = len(lista) % chave
 	if( restChar != 0 ):
 		c = 0
@@ -100,11 +100,13 @@ def vigenere(chave):
 	print "\n \t Vigenere Concluido"
 
 
-def substituicao():
+def substituicao(chave):
 	readFile()
 	saida   = raw_input("Informe o arquivo de saida:\t ")
 	arquivo = open(saida+".encrypted",'wb')
-
+	arquivoChave = open(chave,'rb')
+	tempTranspos = arquivoChave.readlines()
+	
 	
 
 
@@ -124,9 +126,9 @@ def main():
 		chave = raw_input("\n\n\n Cifra de VIGENERE \n\n\nInforme o valor da chave: ")
 		vigenere(chave)
 	elif metodo == 4 :
-		chave = 256
-		print "\n\n\n Cifra de SUBSTITUICAO \n\n"
-		substituicao()
+		
+		chave = raw_input("\n\n\n Cifra de SUBSTITUICAO \n\n\nInforme o arquivo da chave")
+		substituicao(chave)
 
 
 	else :
