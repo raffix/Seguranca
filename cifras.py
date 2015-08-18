@@ -29,7 +29,7 @@ def ceasar(chave):
 	''' descriptografa '''
 
 	arquivo = open(saida,'rb')
-	saida2 = 'DESCRIPTOGRAFADO'+saida
+	saida2 = saida + 'DESCRIPTOGRAFADO'
 	arquivo2 = open(saida2,'wb')
 	dadosCrip = arquivo.readlines()
 	for line in dadosCrip:
@@ -51,7 +51,7 @@ def transposicao(chave):
 	for line in dados:
 		for c in line:
 			lista.append(c)
-	
+
 	restChar = len(lista) % chave
 	if( restChar != 0 ):
 		c = 0
@@ -59,11 +59,11 @@ def transposicao(chave):
 		while c < restChar:
 			lista.append('')
 			c = c +1
-	
+
 	restChar = len(lista) / chave
 	matriz = []
 	pos = 0
-	
+
 	''' Gera a matriz '''
 	for c in range(0,restChar):
 		linha = []
@@ -78,7 +78,7 @@ def transposicao(chave):
 			arquivo.write(matriz[c][d])
 
 	arquivo.close()
-	
+
 	print "\n\n Transposicao Concluido"
 	return
 
@@ -96,14 +96,41 @@ def vigenere(chave):
 		for i in range(0,len(chave)):
 			if ( c == len(dados)):
 				break
-			temp = ord(dados[c]) + ord(chave[i])
-			arquivo.write(str(temp))
+			temp = (ord(dados[c]) + ord(chave[i])) % 256
+			arquivo.write(chr(temp))
 			c = c + 1
 
 	arquivo.close()
 
+	''' descriptografa '''
+
+	arquivo = open(saida+".encrypted",'rb')
+	saida2 = saida + 'DESCRIPTOGRAFADO'
+	arquivo2 = open(saida2,'wb')
+	listaCrip = []
+	dadosCrip = arquivo.readlines()
+	for line in dadosCrip:
+		for c in line:
+			listaCrip.append(c)
+	c = 0 
+
+	while c < len(dados):
+		for i in range(0,len(chave)):
+			if ( c == len(dados)):
+				break
+			temp = ((ord(listaCrip[c]) - ord(chave[i])) + 256 ) % 256
+			arquivo2.write(chr(temp))
+			c = c + 1
+
+	arquivo.close()
+	arquivo2.close()
+
+
+
+
 	print "\n \t Vigenere Concluido"
-	return 
+	return
+
 
 def substituicao(chave):
 	readFile()
