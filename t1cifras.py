@@ -54,6 +54,7 @@ def transposicao(chave):
 
 	restChar = len(lista) % chave
 	if( restChar != 0 ):
+		restChar = chave - restChar
 		c = 0
 		''' Adiciona os caracteres para fechar a matriz '''
 		while c < restChar:
@@ -102,11 +103,14 @@ def vigenere(chave):
 
 	arquivo.close()
 
+
+
+
 	''' descriptografa '''
 
-	arquivo = open(saida+".encrypted",'rb')
-	saida2 = saida + 'DESCRIPTOGRAFADO'
-	arquivo2 = open(saida2,'wb')
+	arquivo   = open(saida+".encrypted",'rb')
+	saida2    = saida + 'DESCRIPTOGRAFADO'
+	arquivo2  = open(saida2,'wb')
 	listaCrip = []
 	dadosCrip = arquivo.readlines()
 	for line in dadosCrip:
@@ -126,22 +130,50 @@ def vigenere(chave):
 	arquivo2.close()
 
 
-
-
 	print "\n \t Vigenere Concluido"
 	return
 
 
-def substituicao(chave):
+def criptografaSubstituicao(chave):
 	readFile()
-	saida   = raw_input("Informe o arquivo de saida:\t ")
-	arquivo = open(saida+".encrypted",'wb')
-	arquivoChave = open(chave,'rb')
+	saida        = raw_input("Informe o arquivo de saida:\t ")
+	arquivo      = open(saida+".encrypted",'wb')
+	arquivoChave = open(chave,'r')
 	tempTranspos = arquivoChave.readlines()
+	chave 		 = []
 
-	
+	for line in tempTranspos:
+			chave.append(int(line))
+
+	for c in dados:
+		item = int(chave[ord(c)])
+		arquivo.write(chr(item))
+	arquivo.close()
+
+	arquivo   = open(saida+".encrypted",'rb')
+	saida2    = saida + 'DESCRIPTOGRAFADO'
+	arquivo2  = open(saida2,'wb')
+	dadosCrip = arquivo.readlines()
+
+	for line in dadosCrip:
+		for c in line:
+			valor = buscaCharPos(ord(c),chave)
+			arquivo2.write(chr(valor))
+
+	arquivo2.close()
+
+	print "\n SUBSTITUICAO Concluido"
+	return
 
 
+
+def buscaCharPos(token, lista):
+	d = 0
+	for c in lista:
+		if( c == token ):
+			return d
+		d = d + 1
+	return -1
 
 def main():
 	metodo = int(raw_input("\n Escolha o metodo de criptografia: \n\t1 - Cifra de Caesar \n\t2 - Cifra de transposicao \n\t3 - Cifra de vigenere\n\t4 - Cifra de substituicao\nEntrada: "))
@@ -159,8 +191,8 @@ def main():
 		vigenere(chave)
 	elif metodo == 4 :
 		
-		chave = raw_input("\n\n\n Cifra de SUBSTITUICAO \n\n\nInforme o arquivo da chave")
-		substituicao(chave)
+		chave = raw_input("\n\n\n Cifra de SUBSTITUICAO \n\n\nInforme o arquivo da chave: \t")
+		criptografaSubstituicao(chave)
 
 
 	else :
