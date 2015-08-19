@@ -26,6 +26,17 @@ def readFile():
 	
 def transposicao():
 	chave = -1
+	
+	entrada = raw_input('Informe o arquivo criptografado: \t')
+	arquivo = open(entrada,'rb')
+	data    = arquivo.readlines()
+	lines	= len(data)
+	columns = len(data[0])
+	for c in data:
+		if( columns != len(c)):
+			return chave 
+
+	chave = lines
 	return chave
 
 def vigenere():
@@ -55,13 +66,16 @@ def caesar():
 
 
 
+
 def main():
 	chave = caesar()
 	if( chave != -1 ):
 		print "Caesar \t Chave: " + str(chave)
-	chave = transposicao
+	chave = transposicao()
 	if( chave != -1 ):
 		print "Transposicao \t Chave: " + str(chave)
+
+
 
 	vigenere()
 	substituicao()
