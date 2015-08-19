@@ -13,7 +13,7 @@ def readFile():
 
 	arquivo.close()
 
-	entrada = raw_input('Inform o arquivo criptografado: \t')
+	entrada = raw_input('Informe o arquivo criptografado: \t')
 	arquivo = open(entrada,'rb')
 	data    = arquivo.readlines()
 
@@ -25,15 +25,22 @@ def readFile():
 	arquivo.close()
 	
 def transposicao():
+	chave = -1
+	return chave
 
 def vigenere():
+	chave = -1
+	return chave
 
 def substituicao():
+	chave = -1
+	return chave
 
 def caesar():
 	readFile()
 	chave = ((dadosCrypt[0] + 256) - dadosClear[0]) % 256
-	for c in range(1,len(dadosClear))
+	size  = len(dadosClear)
+	for c in range(1,size):
 		temp = ((dadosCrypt[c] + 256) - dadosClear[c]) % 256
 		if( chave != temp):
 			return -1
@@ -42,17 +49,18 @@ def caesar():
 	for c in dadosCrypt:
 		temp = ((c + 256) - chave ) % 256 
 		arquivo.write(chr(temp))
-		
+
 	arquivo.close()
 	return chave
 
 
 
 def main():
-
-	if( (chave = ceasar()) != -1 ):
+	chave = caesar()
+	if( chave != -1 ):
 		print "Caesar \t Chave: " + str(chave)
-	if( (chave = transposicao()) != -1 ):
+	chave = transposicao
+	if( chave != -1 ):
 		print "Transposicao \t Chave: " + str(chave)
 
 	vigenere()
