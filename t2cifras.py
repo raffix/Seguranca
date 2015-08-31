@@ -35,9 +35,7 @@ def comparar(decodificacao):
 def transposicao():
 	chave = -1
 	size  = len(dadosCrypt)
-	c 	  = size - 1
-
-	print size
+	c 	  = size
 
 	while c > 0:
 		temp = size % c 
@@ -61,14 +59,21 @@ def transposicao():
 			teste = comparar(decodificacao)
 			if( teste == 0 ):
 				return c
-			print c
 		c =  c - 1
 
 	return chave
 
 def vigenere():
-	chave = -1
+	chave = []
+	for c in range(0,len(dadosCrypt)):
+		temp = ((dadosCrypt[0] + 256) - dadosClear[0]) % 256
+		chave.append(chr(temp))
+	arquivo = open('saida/vigenereChave.txt','wb')
+	for c in chave:
+		arquivo.write(c)
+	arquivo.close()
 	return chave
+
 
 def substituicao():
 	chave = -1
@@ -101,10 +106,9 @@ def main():
 	chave = transposicao()
 	if( chave != -1 ):
 		print "Transposicao \t Chave: " + str(chave)
-
-
-
-	vigenere()
+	chave =  vigenere()
+	if( len(chave) > 0):
+		print "Vigenere"
 	substituicao()
 
 		
