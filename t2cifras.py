@@ -37,14 +37,15 @@ def transposicao():
 	size  = len(dadosCrypt)
 	c 	  = size - 1
 
+	print size
 
 	while c > 0:
 		temp = size % c 
 		if( temp == 0):
 			''' Testa para ver se esta chave funciona realmente '''
-			colunas  = len(dadosCrypt) / c
-			posicao  = 0
-			matrizCryp []
+			colunas    = len(dadosCrypt) / c
+			posicao    = 0
+			matrizCryp = []
 			for d in range(0,c):
 				line = []
 				for e in range(0,colunas):
@@ -60,7 +61,7 @@ def transposicao():
 			teste = comparar(decodificacao)
 			if( teste == 0 ):
 				return c
-
+			print c
 		c =  c - 1
 
 	return chave
