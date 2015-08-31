@@ -23,20 +23,46 @@ def readFile():
 			dadosCrypt.append(ord(c))
 
 	arquivo.close()
+
+
+def comparar(decodificacao):
+	for c in range(0,len(dadosClear)):
+		if( decodificacao[c] != dadosClear[c]):
+			return -1
+	return 0
+
 	
 def transposicao():
 	chave = -1
-	
-	entrada = raw_input('Informe o arquivo criptografado: \t')
-	arquivo = open(entrada,'rb')
-	data    = arquivo.readlines()
-	lines	= len(data)
-	columns = len(data[0])
-	for c in data:
-		if( columns != len(c)):
-			return chave 
+	size  = len(dadosCrypt)
+	c 	  = size - 1
 
-	chave = lines
+
+	while c > 0:
+		temp = size % c 
+		if( temp == 0):
+			''' Testa para ver se esta chave funciona realmente '''
+			colunas  = len(dadosCrypt) / c
+			posicao  = 0
+			matrizCryp []
+			for d in range(0,c):
+				line = []
+				for e in range(0,colunas):
+					line.append(dadosCrypt[posicao])
+					posicao =  posicao + 1
+				matrizCryp.append(line)
+			decodificacao = []
+			for d in (0,colunas):
+				for e in (0,c):
+					decodificacao.append(e)
+
+			teste = -1
+			teste = comparar(decodificacao)
+			if( teste == 0 ):
+				return c
+
+		c =  c - 1
+
 	return chave
 
 def vigenere():
