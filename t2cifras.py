@@ -60,13 +60,14 @@ def transposicao():
 			if( teste == 0 ):
 				return c
 		c =  c - 1
-
 	return chave
+
 
 def vigenere():
 	chave = []
 	for c in range(0,len(dadosCrypt)):
-		temp = ((dadosCrypt[0] + 256) - dadosClear[0]) % 256
+		temp = ((dadosCrypt[c] + 256) - dadosClear[c]) % 256
+
 		chave.append(chr(temp))
 	arquivo = open('saida/vigenereChave.txt','wb')
 	for c in chave:
@@ -76,7 +77,19 @@ def vigenere():
 
 
 def substituicao():
-	chave = -1
+	chave = []
+	for c in range(0,255):
+		chave.append(0)
+	size  = len(dadosCrypt)
+	for c in range(0,size):
+		chave[dadosClear[c]]= dadosCrypt[c]
+	arquivo = open('saida/chave.key','wb')
+	count   = 0
+	for c in chave:
+		arquivo.write(str(c)+'\n')
+		if c != 0 :
+			count = count + 1
+	print count
 	return chave
 
 def caesar():
@@ -109,7 +122,9 @@ def main():
 	chave =  vigenere()
 	if( len(chave) > 0):
 		print "Vigenere"
-	substituicao()
+	chave = substituicao()
+	if( len(chave) > 0):
+		print "Substituicao"
 
 		
 

@@ -87,7 +87,7 @@ def transposicao(chave):
 def vigenere(chave):
 	readFile()
 	saida   = raw_input("Informe o arquivo de saida:\t ")
-	arquivo = open(saida+".encrypted",'wb')
+	arquivo = open(saida+".enc",'wb')
 	resto   = len(dados) % len(chave)
 
 	''' Soma os caracteres '''
@@ -98,6 +98,7 @@ def vigenere(chave):
 			if ( c == len(dados)):
 				break
 			temp = (ord(dados[c]) + ord(chave[i])) % 256
+			print chave[i]
 			arquivo.write(chr(temp))
 			c = c + 1
 
@@ -108,7 +109,7 @@ def vigenere(chave):
 
 	''' descriptografa '''
 
-	arquivo   = open(saida+".encrypted",'rb')
+	arquivo   = open(saida+".enc",'rb')
 	saida2    = saida + 'DESCRIPTOGRAFADO'
 	arquivo2  = open(saida2,'wb')
 	listaCrip = []
@@ -137,7 +138,7 @@ def vigenere(chave):
 def criptografaSubstituicao(chave):
 	readFile()
 	saida        = raw_input("Informe o arquivo de saida:\t ")
-	arquivo      = open(saida+".encrypted",'wb')
+	arquivo      = open(saida+".enc",'wb')
 	arquivoChave = open(chave,'r')
 	tempTranspos = arquivoChave.readlines()
 	chave 		 = []
@@ -150,7 +151,7 @@ def criptografaSubstituicao(chave):
 		arquivo.write(chr(item))
 	arquivo.close()
 
-	arquivo   = open(saida+".encrypted",'rb')
+	arquivo   = open(saida+".enc",'rb')
 	saida2    = saida + 'DESCRIPTOGRAFADO'
 	arquivo2  = open(saida2,'wb')
 	dadosCrip = arquivo.readlines()
