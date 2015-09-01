@@ -1,6 +1,8 @@
 dadosClear = []
 dadosCrypt = []
 
+
+
 def readFile():
 	entrada = raw_input('Informe o arquivo de claro: \t')
 	arquivo = open(entrada,'rb')
@@ -25,18 +27,19 @@ def readFile():
 	arquivo.close()
 
 
+
 def comparar(decodificacao):
 	for c in range(0,len(dadosClear)):
 		if( decodificacao[c] != dadosClear[c]):
 			return -1
 	return 0
 
+
 	
 def transposicao():
 	chave = -1
 	size  = len(dadosCrypt)
 	c 	  = size
-
 	while c > 0:
 		temp = size % c 
 		if( temp == 0):
@@ -63,6 +66,7 @@ def transposicao():
 	return chave
 
 
+
 def vigenere():
 	chave = []
 	for c in range(0,len(dadosCrypt)):
@@ -74,6 +78,7 @@ def vigenere():
 		arquivo.write(c)
 	arquivo.close()
 	return chave
+
 
 
 def substituicao():
@@ -89,11 +94,11 @@ def substituicao():
 		arquivo.write(str(c)+'\n')
 		if c != 0 :
 			count = count + 1
-	print count
 	return chave
 
+
+
 def caesar():
-	readFile()
 	chave = ((dadosCrypt[0] + 256) - dadosClear[0]) % 256
 	size  = len(dadosClear)
 	for c in range(1,size):
@@ -111,8 +116,8 @@ def caesar():
 
 
 
-
 def main():
+	readFile()
 	chave = caesar()
 	if( chave != -1 ):
 		print "Caesar \t Chave: " + str(chave)
@@ -125,6 +130,7 @@ def main():
 	chave = substituicao()
 	if( len(chave) > 0):
 		print "Substituicao"
+
 
 		
 

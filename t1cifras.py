@@ -53,6 +53,7 @@ def transposicao(chave):
 			lista.append(c)
 
 	restChar = len(lista) % chave
+	print restChar
 	if( restChar != 0 ):
 		restChar = chave - restChar
 		c = 0
