@@ -74,10 +74,15 @@ def transposicao(chave):
 			pos = pos + 1
 		matriz.append(linha)
 
+	lista = []
 	''' Transposicao da matriz e gravacao '''
 	for d in range(0,chave):
 		for c in range(0,restChar):
-			arquivo.write(matriz[c][d])
+			lista.append(matriz[d][c])
+
+	for c in lista:
+		arquivo.write(c)
+
 
 	arquivo.close()
 
