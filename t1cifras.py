@@ -53,15 +53,15 @@ def transposicao(chave):
 			lista.append(c)
 
 	restChar = len(lista) % chave
-	print restChar
+	print len(lista)
 	if( restChar != 0 ):
 		restChar = chave - restChar
 		c = 0
 		''' Adiciona os caracteres para fechar a matriz '''
 		while c < restChar:
-			lista.append('')
+			lista.append(chr(0))
 			c = c +1
-
+	print len(lista)
 	restChar = len(lista) / chave
 	matriz = []
 	pos = 0

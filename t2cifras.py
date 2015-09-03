@@ -35,12 +35,12 @@ def comparar(decodificacao):
 	return 0
 
 
-	
+
 def transposicao():
 	chave = -1
 	size  = len(dadosCrypt)
 	c 	  = size
-	while c > 0:
+	while c < size:
 		temp = size % c 
 		if( temp == 0):
 			''' Testa para ver se esta chave funciona realmente '''
@@ -61,8 +61,12 @@ def transposicao():
 			teste = -1
 			teste = comparar(decodificacao)
 			if( teste == 0 ):
+				arquivo = open('saida/t2TransposicaoDecodificado.txt','wb')
+				for d in decodificacao:
+					arquivo.write(d)
+				arquivo.close()
 				return c
-		c =  c - 1
+		c =  c + 1
 	return chave
 
 
@@ -77,6 +81,13 @@ def vigenere():
 	for c in chave:
 		arquivo.write(c)
 	arquivo.close()
+
+	chave = map(ord,chave)
+	arquivo = open('saida/t2VigenereDescriptografado.txt','wb')
+	for c in range(0,len(dadosCrypt)):
+		temp = ((dadosCrypt[c] + 256) - chave[c]) % 256
+		arquivo.write(chr(temp))
+	arquivo.close()
 	return chave
 
 
@@ -87,13 +98,21 @@ def substituicao():
 		chave.append(0)
 	size  = len(dadosCrypt)
 	for c in range(0,size):
-		chave[dadosClear[c]]= dadosCrypt[c]
+		chave[dadosCrypt[c]]= dadosClear[c]
 	arquivo = open('saida/chave.key','wb')
 	count   = 0
 	for c in chave:
 		arquivo.write(str(c)+'\n')
 		if c != 0 :
 			count = count + 1
+
+	arquivo = open("saida/t2SubstituicaoDescriptografado",'wb')
+	for c in dadosCrypt:
+		temp = chave[c]
+		arquivo.write(chr(temp))
+
+	arquivo.close()
+
 	return chave
 
 
@@ -130,7 +149,6 @@ def main():
 	chave = substituicao()
 	if( len(chave) > 0):
 		print "Substituicao"
-
 
 		
 
