@@ -39,9 +39,9 @@ def comparar(decodificacao):
 def transposicao():
 	chave = -1
 	size  = len(dadosCrypt)
-	c 	  = size
-	while c < size:
-		temp = size % c 
+	c 	  = size - 1
+	while c > 0:
+		temp = size % c
 		if( temp == 0):
 			''' Testa para ver se esta chave funciona realmente '''
 			colunas    = len(dadosCrypt) / c
@@ -53,25 +53,31 @@ def transposicao():
 					line.append(dadosCrypt[posicao])
 					posicao =  posicao + 1
 				matrizCryp.append(line)
+
+
 			decodificacao = []
-			for d in (0,colunas):
-				for e in (0,c):
-					decodificacao.append(e)
+			for d in range(0,colunas):
+				for e in range(0,c):
+					aux = matrizCryp[e][d]
+					decodificacao.append(aux)
 
 			teste = -1
 			teste = comparar(decodificacao)
 			if( teste == 0 ):
 				arquivo = open('saida/t2TransposicaoDecodificado.txt','wb')
 				for d in decodificacao:
-					arquivo.write(d)
+					arquivo.write(chr(d))
 				arquivo.close()
 				return c
-		c =  c + 1
+		c =  c - 1
 	return chave
 
 
 
 def vigenere():
+	if( len(dadosCrypt) !=  len(dadosClear)):
+		return 0
+
 	chave = []
 	for c in range(0,len(dadosCrypt)):
 		temp = ((dadosCrypt[c] + 256) - dadosClear[c]) % 256
@@ -93,12 +99,15 @@ def vigenere():
 
 
 def substituicao():
+	if( len(dadosCrypt) !=  len(dadosClear)):
+		return 0
+
 	chave = []
 	for c in range(0,255):
 		chave.append(0)
 	size  = len(dadosCrypt)
 	for c in range(0,size):
-		chave[dadosCrypt[c]]= dadosClear[c]
+		chave[dadosCrypt[c]] = dadosClear[c]
 	arquivo = open('saida/chave.key','wb')
 	count   = 0
 	for c in chave:
@@ -144,10 +153,10 @@ def main():
 	if( chave != -1 ):
 		print "Transposicao \t Chave: " + str(chave)
 	chave =  vigenere()
-	if( len(chave) > 0):
+	if( chave != 0):
 		print "Vigenere"
 	chave = substituicao()
-	if( len(chave) > 0):
+	if( chave != 0):
 		print "Substituicao"
 
 		
