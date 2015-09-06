@@ -1,3 +1,5 @@
+import os
+
 dadosCrypt = []
 
 def readFile():
@@ -15,8 +17,8 @@ def readFile():
 
 
 def carregaDicionarios():
-	''' carrega os dicionarios portugues, latim e ingles '''
-
+	''' carrega os dicionarios ingles '''
+	arquivos = ['','']
 
 
 def main():

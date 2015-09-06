@@ -1,7 +1,7 @@
 dados = []
 
 def readFile():
-	entrada = raw_input('Informe o arquivo de entrada:\t ')
+	entrada = input('Informe o arquivo de entrada:\t ')
 	arquivo = open(entrada,'rb')
 	global dados
 	data = arquivo.readlines()
@@ -14,7 +14,7 @@ def readFile():
 
 def ceasar(chave):
 	readFile()
-	saida = raw_input("Informe o arquivo de saida:\t ")
+	saida = input("Informe o arquivo de saida:\t ")
 	arquivo = open(saida,'wb')
 	''' map(ord,dados) '''
 	for c in dados:
@@ -24,7 +24,7 @@ def ceasar(chave):
 
 	arquivo.close()
 
-	print "\n\tConcluido Caesar\n"
+	print ("\n\tConcluido Caesar\n" )
 
 	''' descriptografa '''
 
@@ -45,7 +45,7 @@ def ceasar(chave):
 def transposicao(chave):
 	readFile()
 	matriz = []
-	saida = raw_input("Informe o arquivo de saida:\t ")
+	saida = input("Informe o arquivo de saida:\t ")
 	arquivo = open(saida,'wb')
 	lista = []
 	for line in dados:
@@ -53,7 +53,6 @@ def transposicao(chave):
 			lista.append(c)
 
 	restChar = len(lista) % chave
-	print len(lista)
 	if( restChar != 0 ):
 		restChar = chave - restChar
 		c = 0
@@ -61,7 +60,7 @@ def transposicao(chave):
 		while c < restChar:
 			lista.append(chr(0))
 			c = c +1
-	print len(lista)
+
 	restChar = len(lista) / chave
 	matriz = []
 	pos = 0
@@ -87,13 +86,13 @@ def transposicao(chave):
 
 	arquivo.close()
 
-	print "\n\n Transposicao Concluido"
+	print ("\n\n Transposicao Concluido" )
 	return
 
 
 def vigenere(chave):
 	readFile()
-	saida   = raw_input("Informe o arquivo de saida:\t ")
+	saida   = input("Informe o arquivo de saida:\t ")
 	arquivo = open(saida+".enc",'wb')
 	resto   = len(dados) % len(chave)
 
@@ -105,7 +104,6 @@ def vigenere(chave):
 			if ( c == len(dados)):
 				break
 			temp = (ord(dados[c]) + ord(chave[i])) % 256
-			print chave[i]
 			arquivo.write(chr(temp))
 			c = c + 1
 
@@ -138,13 +136,13 @@ def vigenere(chave):
 	arquivo2.close()
 
 
-	print "\n \t Vigenere Concluido"
+	print ("\n \t Vigenere Concluido" )
 	return
 
 
 def criptografaSubstituicao(chave):
 	readFile()
-	saida        = raw_input("Informe o arquivo de saida:\t ")
+	saida        = input("Informe o arquivo de saida:\t ")
 	arquivo      = open(saida+".enc",'wb')
 	arquivoChave = open(chave,'r')
 	tempTranspos = arquivoChave.readlines()
@@ -170,7 +168,7 @@ def criptografaSubstituicao(chave):
 
 	arquivo2.close()
 
-	print "\n SUBSTITUICAO Concluido"
+	print ("\n SUBSTITUICAO Concluido" )
 	return
 
 
@@ -184,27 +182,27 @@ def buscaCharPos(token, lista):
 	return -1
 
 def main():
-	metodo = int(raw_input("\n Escolha o metodo de criptografia: \n\t1 - Cifra de Caesar \n\t2 - Cifra de transposicao \n\t3 - Cifra de vigenere\n\t4 - Cifra de substituicao\nEntrada: "))
+	metodo = int(input("\n Escolha o metodo de criptografia: \n\t1 - Cifra de Caesar \n\t2 - Cifra de transposicao \n\t3 - Cifra de vigenere\n\t4 - Cifra de substituicao\nEntrada: "))
 	
 	if metodo == 1 :
-		chave = int(raw_input("\n\n\t Cifra de CAESAR \nInforme o valor da chave:\t "))
+		chave = int(input("\n\n\t Cifra de CAESAR \nInforme o valor da chave:\t "))
 		ceasar(chave)
 
 	elif metodo == 2 :
-		chave = int(raw_input("\n\n\n Cifra de TRANSPOSICAO \n\n\nInforme o valor da chave: "))
+		chave = int(input("\n\n\n Cifra de TRANSPOSICAO \n\n\nInforme o valor da chave: "))
 		transposicao(chave)
 
 	elif metodo == 3 :
-		chave = raw_input("\n\n\n Cifra de VIGENERE \n\n\nInforme o valor da chave: ")
+		chave = input("\n\n\n Cifra de VIGENERE \n\n\nInforme o valor da chave: ")
 		vigenere(chave)
 	elif metodo == 4 :
 		
-		chave = raw_input("\n\n\n Cifra de SUBSTITUICAO \n\n\nInforme o arquivo da chave: \t")
+		chave = input("\n\n\n Cifra de SUBSTITUICAO \n\n\nInforme o arquivo da chave: \t")
 		criptografaSubstituicao(chave)
 
 
 	else :
-		print "\n\n\nNenhuma cifra valida escolhida \n "
+		print ("\n\n\nNenhuma cifra valida escolhida \n " )
 		return
 		
 
