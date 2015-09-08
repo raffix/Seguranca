@@ -1,6 +1,5 @@
-import os
-
 dadosCrypt = []
+dicionario = []
 
 def readFile():
 	entrada = raw_input('Informe o arquivo criptografado: \t')
@@ -18,8 +17,12 @@ def readFile():
 
 def carregaDicionarios():
 	''' carrega os dicionarios ingles '''
-	arquivos = ['','']
+	arquivo = open('dicionario.txt','rb')
+	global dicionario
+	dicionario = arquivo.readlines()
+	arquivo.close()
 
+	
 
 def main():
 	readFile()
