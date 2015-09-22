@@ -1,6 +1,6 @@
 dadosCrypt = []
 dicionario = []
-pontos	   = [',','.','!','?','(',')','[',']','{','}',':',';','/','*','\/',"'",'-','+','%','$','@','_','=','^','~','|']
+acentos	   = [',','.','!','?','(',')','[',']','{','}',':',';','/','*','\/',"'",'-','+','%','$','@','_','=','^','~','|']
 
 def readFile():
 	entrada = input('Informe o arquivo criptografado: \t')
@@ -22,7 +22,7 @@ def carregaDicionarios():
 	linhas  = arquivo.readlines()
 	arquivo.close()
 	pos 	= chr(0)
-	line	= [] 
+	line	= []
 	size 	= len(linhas)
 	for c in range(0,size):
 		if(pos == linhas[c][0]):
@@ -39,17 +39,38 @@ def saidaCheck(dados):
 	texto 	 = ''.join(dados)
 	palavras = texto.split(' ')
 	for palavra in palavras:
-
-
+		
+		for d in range(0,len(palavra)):
+			flag = 0
+			''' Procura por possivel  '''
+			for e in acentos:
+				if( e == palavra[d]):
+					flag = 1
+					break
+			if( flag == 0 ):
+				for pos in range(1,len(dicionario)):
+					if(dicionario[pos][0][0] == ord(palavra[d])):
+						found = 0
+						for word in dicionario[pos]:
+							if( str(word) in str(palavra) ):
+								d =len(palavra)
+								found = 1
+								break
+						if( d != len(palavra)):
+							return -1
+						if( found == 0 ):
+							return -1
 	return 1
 
 def caesar():
 	for chave in range(1,255):
 		saida = []
 		for c in dadosCrypt:
-			saida.append(chr(((c + 256) - chave % 256)))
+			saida.append(chr(((c + 256) - chave) % 256))
 		''' Verifica se a saida e valida '''
 		check = saidaCheck(saida)
+		if( check != -1):
+			return chave
 	return -1
 
 def transposicao():
